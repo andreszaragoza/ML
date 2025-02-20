@@ -51,7 +51,7 @@ print(f"MSE: {mse}")
 print(f"R² Score: {r2}")
 
 
-model_path = "../src/models/new_model_random.pkl"
+model_path = 'C:/Users/anoni/ML/models/trained/new_model_random.pkl'
 os.makedirs(os.path.dirname(model_path), exist_ok=True)
 joblib.dump(rf_model, model_path)
 print(f"Modelo guardado en: {model_path}")
