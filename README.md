@@ -1,6 +1,6 @@
 # Modelo de Machine Learning de Videojuegos
 
-# Procesado de Datos para Clasificación
+### Procesado de Datos para Clasificación
 
 Este notebook contiene el procesamiento de datos para un modelo de clasificación. Se incluyen técnicas de limpieza, balanceo de clases y transformación de variables.
 
