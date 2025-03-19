@@ -1,49 +1,72 @@
 # Modelo de Machine Learning de Videojuegos
 
-### Procesado de Datos para Clasificación
 
-Este notebook contiene el procesamiento de datos para un modelo de clasificación. Se incluyen técnicas de limpieza, balanceo de clases y transformación de variables.
+![Procesamiento de Datos](notebooks\IMG\DALL·E 2025-03-11 15.40.14 - A futuristic Helldiver equipped with Machine Learning technology, wearing high-tech armor displaying holographic interfaces and active artificial inte.webp)
 
-## Contenido del Notebook
+## Descripción General
+Este notebook realiza un análisis y procesamiento de datos para clasificar juegos en diferentes categorías de rating. Utiliza técnicas de preprocesamiento, creación de características derivadas, imputación de valores nulos y entrenamiento de modelos de clasificación. El objetivo principal es predecir la categoría de rating de un juego basado en sus características.
+
+## Objetivos
+- Preprocesar un conjunto de datos de juegos, incluyendo la imputación de valores nulos y la creación de nuevas características.
+- Clasificar los juegos en tres categorías de rating: **Bajo, Medio y Alto**.
+- Entrenar un modelo de clasificación utilizando **LightGBM** y optimizar sus hiperparámetros con **RandomizedSearchCV**.
+- Evaluar el modelo en términos de métricas de clasificación como **accuracy, f1-score** y **matriz de confusión**.
+
+## Pasos Principales
+
+### Carga y Exploración de Datos
+- Se cargan los datos desde un archivo CSV (**Juegorawg_limpio.csv**).
+- Se analizan las dimensiones del dataset y las estadísticas descriptivas de la columna **rating**.
 
 ### Preprocesamiento
-- Crear categorías de rating para clasificación
-- Verificar valores nulos en `rating_category`
-- Imputar los valores nulos en `rating_category`
-  - Se usaron los valores de rating normal
+- Se crean categorías de rating (**Bajo, Medio, Alto**) utilizando la función `pd.cut`.
+- Se imputan valores nulos en la columna **rating_category** basándose en los valores de **rating**.
 
-### Trabajo con Características
-- Enfoque en características de clustering
-- Aplicación de clustering con **K-means**
-  - Se definieron 5 clusters para mejor segmentación
-- Creación de variables dummy para los clusters
-- Codificación de `main_genre` usando one-hot encoding
+### Creación de Características Derivadas
+Se generan nuevas columnas como:
+- **rating_to_count_ratio**: Relación entre el rating y el número de calificaciones.
+- **reviews_to_ratings_ratio**: Relación entre reseñas y calificaciones.
+- **popularity_score**: Puntuación de popularidad basada en varias métricas.
+- **recency_factor**: Factor de recencia basado en el año de lanzamiento.
 
-### Preparación y Entrenamiento del Modelo
-- Combinación de modelos y aplicación de balanceo de clases
-- **Selección de características** para mejorar predicciones
-- Entrenamiento del modelo con **Gradient Boosting**
-- Evaluación del modelo mediante métricas clave
+### Selección y Codificación de Características
+- Se seleccionan características numéricas y categóricas relevantes.
+- Se codifican las características categóricas utilizando `LabelEncoder`.
 
-## Resumen de Resultados
+### Entrenamiento del Modelo
+- Se utiliza **LightGBM** como modelo base.
+- Se optimizan los hiperparámetros con **RandomizedSearchCV**.
+- Los mejores parámetros encontrados incluyen:
+  - `subsample`: 0.8
+  - `num_leaves`: 100
+  - `n_estimators`: 300
+  - `max_depth`: 7
+  - `learning_rate`: 0.1
+  - `colsample_bytree`: 0.9
 
-### Logros del Modelo de Clasificación Mejorado
+### Evaluación del Modelo
+- Se evalúa el modelo en el conjunto de prueba, obteniendo:
+  - **Accuracy**: 97.75%
+  - **F1-Score ponderado**: 97.75%
+- Se genera un informe de clasificación detallado y una matriz de confusión.
 
-#### 1. Predicción precisa de categorías de rating
-- **94.4% de exactitud** con el modelo **Gradient Boosting**
-- Clasificación efectiva en tres categorías de rating: **Bajo, Medio y Alto** con alta precisión
+## Resultados
+- El modelo entrenado alcanzó un **accuracy del 97.75%** en el conjunto de prueba.
+- La clasificación de las categorías de rating mostró un excelente desempeño, con valores altos de **precisión, recall y f1-score** para todas las clases.
 
-#### 2. Rendimiento por categoría
-- **Categoría "Bajo"**: 100% de precisión, 96% de recall
-- **Categoría "Medio"**: 86% de precisión, 93% de recall
-- **Categoría "Alto"**: 90% de precisión, 90% de recall
+## Requisitos
+### Librerías utilizadas:
+- `pandas`
+- `numpy`
+- `scikit-learn`
+- `lightgbm`
 
-#### 3. Aplicaciones prácticas
-- **Predicción de calidad**: Estimación de la calidad de un juego antes de su lanzamiento
-- **Identificación de factores de éxito**: Detección de características clave para un rating alto
-- **Segmentación de mercado**: Clasificación de juegos en diferentes segmentos de calidad
+## Cómo Usar
+1. Asegúrate de tener el archivo de datos **Juegorawg_limpio.csv** en la ruta especificada.
+2. Ejecuta las celdas del notebook en orden para reproducir los resultados.
+3. Modifica los hiperparámetros o las características seleccionadas para experimentar con el modelo.
 
-### Conclusión
-Este modelo proporciona una herramienta efectiva para clasificar y predecir el éxito de videojuegos basado en múltiples características. Puede ser utilizado para análisis de tendencias, desarrollo de nuevos títulos y estrategias de marketing.
+## Conclusión
+Este notebook demuestra un flujo completo de **preprocesamiento, ingeniería de características y clasificación** utilizando un modelo avanzado como **LightGBM**. Los resultados obtenidos son prometedores y pueden ser mejorados con **más datos o ajustes adicionales**.
 
 ---
