@@ -1,7 +1,7 @@
 # Modelo de Machine Learning de Videojuegos
 
 
-![Procesamiento de Datos](notebooks\IMG\DALL·E 2025-03-11 15.40.14 - A futuristic Helldiver equipped with Machine Learning technology, wearing high-tech armor displaying holographic interfaces and active artificial inte.webp)
+![ML Helldivers](./notebooks/IMG/DALL·E%202025-03-11%2015.40.14%20-%20A%20futuristic%20Helldiver%20equipped%20with%20Machine%20Learning%20technology,%20wearing%20high-tech%20armor%20displaying%20holographic%20interfaces%20and%20active%20artificial%20inte.webp)
 
 ## Descripción General
 Este notebook realiza un análisis y procesamiento de datos para clasificar juegos en diferentes categorías de rating. Utiliza técnicas de preprocesamiento, creación de características derivadas, imputación de valores nulos y entrenamiento de modelos de clasificación. El objetivo principal es predecir la categoría de rating de un juego basado en sus características.
