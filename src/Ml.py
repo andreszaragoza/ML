@@ -4,7 +4,8 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, OneHotEncoder, LabelEncoder
-from sklearn.ensemble import GradientBoostingClassifier
+from lightgbm import LGBMClassifier 
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.metrics import  classification_report, confusion_matrix, accuracy_score, f1_score, mean_squared_error, mean_absolute_error, r2_score
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -59,27 +60,27 @@ X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
 # Entrenar modelo GradientBoosting
-gb_clf = GradientBoostingClassifier(n_estimators=100, learning_rate=0.1, random_state=42)
-gb_clf.fit(X_train_scaled, y_train)
+lgbm_clf = LGBMClassifier(class_weight='balanced', random_state=42)
+lgbm_clf.fit(X_train, y_train)
 
 # Crear una explicación manual del modelo basada en la importancia de características
 feature_importance = pd.DataFrame({
     'Feature': important_features,
-    'Importance': gb_clf.feature_importances_
+    'Importance': lgbm_clf .feature_importances_
 })
 feature_importance = feature_importance.sort_values('Importance', ascending=False)
 
 # Graficar importancia de características
 plt.figure(figsize=(12, 8))
 sns.barplot(x='Importance', y='Feature', data=feature_importance)
-plt.title('Importancia de Características en el Modelo Gradient Boosting')
+plt.title('Importancia de Características en el Modelo LightGBM')
 plt.tight_layout()
 plt.savefig('feature_importance_final.png')
 plt.close()
 
 # Guardar el modelo y componentes necesarios para la inferencia
 model_components = {
-    'model': gb_clf,
+    'model': lgbm_clf ,
     'scaler': scaler,
     'label_encoder': label_encoder,
     'important_features': important_features
@@ -87,5 +88,5 @@ model_components = {
 
 model_path = 'C:/Users/anoni/ML/models/trained/Mi_modelo.pkl'
 os.makedirs(os.path.dirname(model_path), exist_ok=True)
-joblib.dump(gb_clf, model_path)
+joblib.dump(lgbm_clf , model_path)
 print(f"Modelo guardado en: {model_path}")
